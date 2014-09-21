@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slidify Presentation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Slidify Presentation">
+  <meta name="author" content="Lee Chun Wai">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/custom.css"></link>
+<link rel=stylesheet href="./assets/css/custom.css.BACKUP.546.css"></link>
+<link rel=stylesheet href="./assets/css/custom.css.BASE.546.css"></link>
+<link rel=stylesheet href="./assets/css/custom.css.LOCAL.546.css"></link>
+<link rel=stylesheet href="./assets/css/custom.css.REMOTE.546.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Slidify Presentation</h1>
+    <h2>Developing Data Products</h2>
+    <p>Lee Chun Wai<br/>Coursera Student</p>
+  </hgroup>
+    <a href="https://github.com/BellyTheMaginificent/Slidify_Presentation/zipball/gh-pages" class="example">
+     Download
+    </a>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Chicago Motor Vehicle Theft Analytic</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Chicago Motor Vehicle Theft Analytic</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Data Loading and basic pre-processing using different <strong>date</strong> functions</p>
+
+<pre><code class="r">library(ggplot2)
+library(ggmap)
+
+mvt = read.csv(&quot;/Users/JoseCLee/Documents/EDX/The Analytic Edge/Week8/mvt.csv&quot;, 
+               stringsAsFactors=FALSE)
+mvt$Date = strptime(mvt$Date, format =&quot;%m/%d/%y %H:%M&quot;)
+mvt$Weekday = weekdays(mvt$Date)
+mvt$Hour = mvt$Date$hour
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chicago Crime (Weekly)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ggplot(WeekdayCounts, aes (x = Var1, y = Freq)) + geom_line(aes(group=1), alpha=0.3) + 
+                 xlab(&quot;Days Of the Week &quot;) + ylab(&quot;Total Motor Vehicle Thefts&quot;)
+</code></pre>
+
+<p><img src="assets/fig/Weekly_Plot.png" alt="plot of chunk Weekly_Plot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Chicago Crime Analytic (Hourly)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ggplot(DayHourCounts,aes(x=Hour,y=Freq,color=Var1,size=2)) + geom_line(aes(group=Var1))
+</code></pre>
+
+<p><img src="assets/fig/Hourly_Plot.png" alt="plot of chunk Hourly_Plot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Google Map</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Create a map of Chicago using Google Map library.   </p>
+
+<pre><code class="r">chicago = get_map(location = &quot;chicago&quot;, zoom = 11)
+</code></pre>
+
+<ul>
+<li>Required Internet Connection</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Google Map (Cont.)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ggmap(chicago) + geom_point(data=mvt[1:100,], aes(x=Longitude, y=Latitude))
+</code></pre>
+
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).
+</code></pre>
+
+<p><img src="assets/fig/slide%203.png" alt="plot of chunk slide 3"> 
+--- .class #id </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Chicago Motor Vehicle Theft Analytic'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Chicago Motor Vehicle Theft Analytic'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Chicago Crime (Weekly)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Chicago Crime Analytic (Hourly)'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Google Map'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Google Map (Cont.)'>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
