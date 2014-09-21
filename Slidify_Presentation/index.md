@@ -1,5 +1,5 @@
 ---
-title       : Slidify Presentation
+title       : Vehicle Theft Prediction
 subtitle    : Developing Data Products
 author      : Lee Chun Wai
 job         : Coursera Student
@@ -21,7 +21,13 @@ github:
 
 ## Chicago Motor Vehicle Theft Analytic
 
-<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+**What is happening**   
+1. Vehicle theft cases getting more and more   
+2. Number of criminals outnumber the police force   
+3. Area of coverage getting bigger as continuous development and expansion on the city landscape.   
+   
+**Solutions**
+> + Crimes is repeatating with certain pattern(s). We could analyze them by time and location information, then using preditive measurment to optimize the police force deployment smartly.
 
 ---
 
@@ -29,21 +35,30 @@ github:
 
 Data Loading and basic pre-processing using different __date__ functions
 
-```r
-library(ggplot2)
-library(ggmap)
 
-mvt = read.csv("/Users/JoseCLee/Documents/EDX/The Analytic Edge/Week8/mvt.csv", 
-               stringsAsFactors=FALSE)
+
+```r
+mvt = read.csv(src_file, stringsAsFactors=FALSE)
 mvt$Date = strptime(mvt$Date, format ="%m/%d/%y %H:%M")
 mvt$Weekday = weekdays(mvt$Date)
 mvt$Hour = mvt$Date$hour
+str(mvt)
 ```
+
+```
+## 'data.frame':	191641 obs. of  5 variables:
+##  $ Date     : POSIXlt, format: "2012-12-31 23:15:00" "2012-12-31 22:00:00" ...
+##  $ Latitude : num  41.8 41.9 42 41.8 41.8 ...
+##  $ Longitude: num  -87.6 -87.7 -87.8 -87.7 -87.6 ...
+##  $ Weekday  : chr  "Monday" "Monday" "Monday" "Monday" ...
+##  $ Hour     : int  23 22 22 22 21 20 20 20 19 18 ...
+```
+[Data File](https://github.com/BellyTheMagnificent/Slidify_Presentation/blob/master/Slidify_Presentation/data/mvt.csv) 
 
 ---  .class #id 
 
 ## Chicago Crime (Weekly)
-
+Most of the theft cases are happen on Friday!
 
 
 
@@ -57,40 +72,25 @@ ggplot(WeekdayCounts, aes (x = Var1, y = Freq)) + geom_line(aes(group=1), alpha=
 ---  .class #id 
    
 ## Chicago Crime Analytic (Hourly)
-
+From the hourly view of the data, we can conclude that vehicle thefts are active during late night, between 12 am to 1am.
 
 
 
 ```r
-ggplot(DayHourCounts,aes(x=Hour,y=Freq,color=Var1,size=2)) + geom_line(aes(group=Var1))
+ggplot(DayHourCounts,aes(x=Hour,y=Freq,color=Var1,size=1)) + geom_line(aes(group=Var1))
 ```
 
 ![plot of chunk Hourly_Plot](assets/fig/Hourly_Plot.png) 
 
 ---  .class #id 
    
-## Google Map
-
-Create a map of Chicago using Google Map library.   
-
-
-```r
-chicago = get_map(location = "chicago", zoom = 11)
-```
-* Required Internet Connection
-
---- .class #id 
-
-## Google Map (Cont.)
+## Chicago Mobile Vehicle Theft (Location)
+Visualizing data using Google map do show the are areas which frequently trouble by the theft cases. Perhaps the police department could deploy more forces on this area.
 
 
 ```r
-ggmap(chicago) + geom_point(data=mvt[1:100,], aes(x=Longitude, y=Latitude))
+ggmap(chicago) + geom_tile(data=LatLonCounts, aes(x=Long, y=Lat, alpha=Freq), fill="red") + 
+         xlab("Longitude") + ylab("Latitude")
 ```
 
-```
-## Warning: Removed 7 rows containing missing values (geom_point).
-```
-
-![plot of chunk slide 3](assets/fig/slide 3.png) 
---- .class #id 
+![plot of chunk Slide 2](assets/fig/Slide 2.png) 
