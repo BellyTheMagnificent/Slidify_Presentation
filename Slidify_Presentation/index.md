@@ -23,25 +23,14 @@ github:
 
 **What is happening**   
 1. Vehicle theft cases getting more and more   
-2. Number of criminals outnumber the police force   
-3. Area of coverage getting bigger as continuous development and expansion on the city landscape.   
-   
-**Solutions**
-> + Crimes is repeatating with certain pattern(s). We could analyze them by time and location information, then using preditive measurment to optimize the police force deployment smartly.
-
----
-
-## Chicago Motor Vehicle Theft Analytic
-
-Data Loading and basic pre-processing using different __date__ functions
+2. Area of coverage getting bigger as continuous development and expansion on the city landscape.  
 
 
 
 ```r
-mvt = read.csv(src_file, stringsAsFactors=FALSE)
-mvt$Date = strptime(mvt$Date, format ="%m/%d/%y %H:%M")
-mvt$Weekday = weekdays(mvt$Date)
-mvt$Hour = mvt$Date$hour
+mvt = read.csv(src_file, stringsAsFactors=FALSE);
+mvt$Date = strptime(mvt$Date, format ="%m/%d/%y %H:%M");
+mvt$Weekday = weekdays(mvt$Date); mvt$Hour = mvt$Date$hour;
 str(mvt)
 ```
 

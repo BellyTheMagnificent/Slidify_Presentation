@@ -59,30 +59,11 @@
   <article data-timings="">
     <p><strong>What is happening</strong><br>
 1. Vehicle theft cases getting more and more<br>
-2. Number of criminals outnumber the police force<br>
-3. Area of coverage getting bigger as continuous development and expansion on the city landscape.   </p>
+2. Area of coverage getting bigger as continuous development and expansion on the city landscape.  </p>
 
-<p><strong>Solutions</strong></p>
-
-<ul class = "build incremental">
-<li>Crimes is repeatating with certain pattern(s). We could analyze them by time and location information, then using preditive measurment to optimize the police force deployment smartly.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>Chicago Motor Vehicle Theft Analytic</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Data Loading and basic pre-processing using different <strong>date</strong> functions</p>
-
-<pre><code class="r">mvt = read.csv(src_file, stringsAsFactors=FALSE)
-mvt$Date = strptime(mvt$Date, format =&quot;%m/%d/%y %H:%M&quot;)
-mvt$Weekday = weekdays(mvt$Date)
-mvt$Hour = mvt$Date$hour
+<pre><code class="r">mvt = read.csv(src_file, stringsAsFactors=FALSE);
+mvt$Date = strptime(mvt$Date, format =&quot;%m/%d/%y %H:%M&quot;);
+mvt$Weekday = weekdays(mvt$Date); mvt$Hour = mvt$Date$hour;
 str(mvt)
 </code></pre>
 
@@ -162,26 +143,20 @@ str(mvt)
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Chicago Motor Vehicle Theft Analytic'>
+        data-slide=2 title='Chicago Crime (Weekly)'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Chicago Crime (Weekly)'>
+        data-slide=3 title='Chicago Crime Analytic (Hourly)'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Chicago Crime Analytic (Hourly)'>
+        data-slide=4 title='Chicago Mobile Vehicle Theft (Location)'>
          4
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Chicago Mobile Vehicle Theft (Location)'>
-         5
       </a>
     </li>
   </ul>
